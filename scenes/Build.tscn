@@ -1,0 +1,215 @@
+[gd_scene format=3 uid="uid://b7o72v2nfjf1o"]
+
+[ext_resource type="Script" uid="uid://cl7wngraa8pxt" path="res://scripts/build.gd" id="1_build"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_desk"]
+size = Vector2(700, 50)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_downramp"]
+size = Vector2(610, 30)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
+size = Vector2(6000, 100)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_launch"]
+size = Vector2(300, 40)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fairy"]
+radius = 40.0
+
+[node name="Build" type="Node2D" unique_id=1090394640]
+script = ExtResource("1_build")
+
+[node name="Background" type="Node2D" parent="." unique_id=229031328 z_index=-10]
+
+[node name="Wallpaper" type="ColorRect" parent="Background" unique_id=1485902522]
+offset_left = -1000.0
+offset_top = -200.0
+offset_right = 5000.0
+offset_bottom = 1000.0
+color = Color(0.92, 0.88, 0.82, 1)
+
+[node name="Baseboard" type="ColorRect" parent="Background" unique_id=1133987642]
+offset_left = -1000.0
+offset_top = 710.0
+offset_right = 5000.0
+offset_bottom = 750.0
+color = Color(0.7, 0.55, 0.4, 1)
+
+[node name="DeskLegLeft" type="ColorRect" parent="Background" unique_id=590636892]
+offset_left = 50.0
+offset_top = 537.0
+offset_right = 90.0
+offset_bottom = 750.0
+color = Color(0.4, 0.28, 0.15, 1)
+
+[node name="DeskLegRight" type="ColorRect" parent="Background" unique_id=1415439104]
+offset_left = 550.0
+offset_top = 537.0
+offset_right = 590.0
+offset_bottom = 750.0
+color = Color(0.4, 0.28, 0.15, 1)
+
+[node name="WindowFrame" type="ColorRect" parent="Background" unique_id=1385116966]
+offset_left = 1490.0
+offset_top = 190.0
+offset_right = 1710.0
+offset_bottom = 510.0
+
+[node name="WindowGlass" type="ColorRect" parent="Background" unique_id=938111755]
+offset_left = 1500.0
+offset_top = 200.0
+offset_right = 1700.0
+offset_bottom = 500.0
+color = Color(0.6, 0.8, 1, 1)
+
+[node name="WindowGridH" type="ColorRect" parent="Background" unique_id=529766041]
+offset_left = 1500.0
+offset_top = 345.0
+offset_right = 1700.0
+offset_bottom = 355.0
+
+[node name="WindowGridV" type="ColorRect" parent="Background" unique_id=1201138279]
+offset_left = 1595.0
+offset_top = 200.0
+offset_right = 1605.0
+offset_bottom = 500.0
+
+[node name="BedBase" type="ColorRect" parent="Background" unique_id=2093798755]
+offset_left = -600.0
+offset_top = 600.0
+offset_right = -150.0
+offset_bottom = 750.0
+color = Color(0.5, 0.3, 0.2, 1)
+
+[node name="BedMattress" type="ColorRect" parent="Background" unique_id=278265548]
+offset_left = -590.0
+offset_top = 550.0
+offset_right = -160.0
+offset_bottom = 600.0
+color = Color(0.9, 0.9, 0.95, 1)
+
+[node name="BedPillow" type="ColorRect" parent="Background" unique_id=1977491985]
+offset_left = -570.0
+offset_top = 520.0
+offset_right = -490.0
+offset_bottom = 550.0
+color = Color(0.8, 0.4, 0.4, 1)
+
+[node name="Desk" type="StaticBody2D" parent="." unique_id=1906902355]
+position = Vector2(300, 537)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Desk" unique_id=134000380]
+shape = SubResource("RectangleShape2D_desk")
+
+[node name="ColorRect" type="ColorRect" parent="Desk" unique_id=143386686]
+offset_left = -350.0
+offset_top = -25.0
+offset_right = 350.0
+offset_bottom = 25.0
+color = Color(0.5, 0.35, 0.2, 1)
+
+[node name="DownhillRamp" type="StaticBody2D" parent="." unique_id=214952539]
+position = Vector2(920, 631)
+rotation = 0.401426
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DownhillRamp" unique_id=734395368]
+shape = SubResource("RectangleShape2D_downramp")
+
+[node name="ColorRect" type="ColorRect" parent="DownhillRamp" unique_id=177319486]
+offset_left = -305.0
+offset_top = -15.0
+offset_right = 305.0
+offset_bottom = 15.0
+color = Color(0.45, 0.3, 0.15, 1)
+
+[node name="Floor" type="StaticBody2D" parent="." unique_id=1231308069]
+position = Vector2(3000, 800)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor" unique_id=46094983]
+shape = SubResource("RectangleShape2D_floor")
+
+[node name="ColorRect" type="ColorRect" parent="Floor" unique_id=224924129]
+offset_left = -3000.0
+offset_top = -50.0
+offset_right = 3000.0
+offset_bottom = 50.0
+color = Color(0.25, 0.15, 0.35, 1)
+
+[node name="LaunchRamp" type="StaticBody2D" parent="." unique_id=453076871]
+position = Vector2(1800, 700)
+rotation = -0.436332
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LaunchRamp" unique_id=2037107621]
+shape = SubResource("RectangleShape2D_launch")
+
+[node name="ColorRect" type="ColorRect" parent="LaunchRamp" unique_id=2060909617]
+offset_left = -150.0
+offset_top = -20.0
+offset_right = 150.0
+offset_bottom = 20.0
+color = Color(0.5, 0.35, 0.2, 1)
+
+[node name="FairyArea" type="Area2D" parent="." unique_id=581647585]
+position = Vector2(2500, 350)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FairyArea" unique_id=561767019]
+shape = SubResource("CircleShape2D_fairy")
+
+[node name="Polygon2D" type="Polygon2D" parent="FairyArea" unique_id=2135392115]
+color = Color(1, 0.8, 0.2, 1)
+polygon = PackedVector2Array(0, -40, 9, -12, 38, -12, 14, 5, 24, 32, 0, 15, -24, 32, -14, 5, -38, -12, -9, -12)
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=772672215]
+position = Vector2(576, 324)
+
+[node name="GridDrawer" type="Node2D" parent="." unique_id=293847291]
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=550624487]
+
+[node name="UILabel" type="Label" parent="UI" unique_id=144256818]
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 600.0
+offset_bottom = 200.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "== BUILD MODE =="
+
+[node name="BuildPanel" type="Panel" parent="UI" unique_id=85494662]
+offset_left = 200.0
+offset_top = 530.0
+offset_right = 952.0
+offset_bottom = 630.0
+
+[node name="HBox" type="HBoxContainer" parent="UI/BuildPanel" unique_id=349246872]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="BoxButton" type="Button" parent="UI/BuildPanel/HBox" unique_id=546048123]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Kardus (0)"
+
+[node name="WheelButton" type="Button" parent="UI/BuildPanel/HBox" unique_id=401873710]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Roda (0)"
+
+[node name="FanButton" type="Button" parent="UI/BuildPanel/HBox" unique_id=268884391]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Kipas (0)"
+
+[node name="BalloonButton" type="Button" parent="UI/BuildPanel/HBox" unique_id=1990126494]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Balon (0)"

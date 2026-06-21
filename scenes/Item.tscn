@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://d2jne0fwxxi71"]
+
+[ext_resource type="Script" path="res://scripts/item.gd" id="1_item"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_item"]
+size = Vector2(40, 40)
+
+[node name="Item" type="Area2D" unique_id=449867970]
+script = ExtResource("1_item")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1392469305]
+shape = SubResource("RectangleShape2D_item")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=343037428]
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+color = Color(0.6, 0.4, 0.2, 1)
+
+[node name="Label" type="Label" parent="." unique_id=122105647]
+offset_left = -50.0
+offset_top = -45.0
+offset_right = 50.0
+offset_bottom = -22.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 14
+text = "Kardus"
+horizontal_alignment = 1
+vertical_alignment = 1

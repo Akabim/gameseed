@@ -1,0 +1,63 @@
+[gd_scene format=3 uid="uid://bti1bn51fut0i"]
+
+[ext_resource type="Script" path="res://scripts/explore.gd" id="1_explore"]
+[ext_resource type="Script" path="res://scripts/player_explore.gd" id="2_player"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
+size = Vector2(6000, 100)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_player"]
+size = Vector2(40, 80)
+
+[node name="Explore" type="Node2D" unique_id=842778198]
+script = ExtResource("1_explore")
+
+[node name="Floor" type="StaticBody2D" parent="." unique_id=539489773]
+position = Vector2(1000, 600)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor" unique_id=1796271160]
+shape = SubResource("RectangleShape2D_floor")
+
+[node name="ColorRect" type="ColorRect" parent="Floor" unique_id=547731110]
+offset_left = -3000.0
+offset_top = -50.0
+offset_right = 3000.0
+offset_bottom = 50.0
+color = Color(0.4, 0.2, 0.1, 1)
+
+[node name="Player" type="CharacterBody2D" parent="." unique_id=1141286965]
+position = Vector2(500, 500)
+script = ExtResource("2_player")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player" unique_id=947513714]
+shape = SubResource("RectangleShape2D_player")
+
+[node name="ColorRect" type="ColorRect" parent="Player" unique_id=1813552120]
+offset_left = -20.0
+offset_top = -40.0
+offset_right = 20.0
+offset_bottom = 40.0
+color = Color(1, 0.4, 0.7, 1)
+
+[node name="Camera2D" type="Camera2D" parent="Player" unique_id=1947380412]
+position_smoothing_enabled = true
+
+[node name="ItemsContainer" type="Node2D" parent="." unique_id=2141920592]
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=374414020]
+
+[node name="TimeLabel" type="Label" parent="UI" unique_id=2143478372]
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 600.0
+offset_bottom = 43.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "SISA WAKTU EXPLORE: 20 Detik"
+
+[node name="InventoryLabel" type="Label" parent="UI" unique_id=1694210584]
+offset_left = 20.0
+offset_top = 60.0
+offset_right = 600.0
+offset_bottom = 150.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "=== TAS KAMU ==="
