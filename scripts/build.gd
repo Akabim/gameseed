@@ -175,6 +175,10 @@ func _update_ui():
 		fan_btn.text = "Pendorong (%d)" % Global.inventory["FAN"]
 		balloon_btn.text = "Balon (%d)" % Global.inventory["BALLOON"]
 		
+		# Sembunyikan tombol barang yang belum di-unlock di level ini
+		fan_btn.visible = Global.unlocked_parts["FAN"]
+		balloon_btn.visible = Global.unlocked_parts["BALLOON"]
+		
 		var timer_text = ""
 		if not grid.is_empty():
 			timer_text = "\n⏰ Sisa Waktu Merakit: %d detik" % int(ceil(build_time_left))

@@ -16,19 +16,47 @@ var reward_pool = [
 var chosen_options = []
 
 func _ready():
-	# Ambil 3 pilihan unik dari pool
-	var pool = reward_pool.duplicate()
-	pool.shuffle()
+	var unlocked_announcement = ""
 	
-	chosen_options = [pool[0], pool[1], pool[2]]
+	# Cek apakah level yang diselesaikan membuka mainan baru
+	if Global.current_level == 1:
+		# Menyelesaikan Level 1 -> Buka Pendorong (FAN) untuk Level 2
+		if not Global.unlocked_parts["FAN"]:
+			Global.unlocked_parts["FAN"] = true
+			Global.total_parts["FAN"] = 1 # Diberikan 1 pendorong starter gratis
+			unlocked_announcement = "Luar biasa Nak! Kamu membuka item baru: ⚙️ Pendorong!\n"
+			
+	elif Global.current_level == 2:
+		# Menyelesaikan Level 2 -> Buka Balon (BALLOON) untuk Level 3
+		if not Global.unlocked_parts["BALLOON"]:
+			Global.unlocked_parts["BALLOON"] = true
+			Global.total_parts["BALLOON"] = 1 # Diberikan 1 balon starter gratis
+			unlocked_announcement = "Hebat Nak! Kamu membuka item baru: 🎈 Balon Helium!\n"
+
+	# Set teks bubble dialog host
+	if unlocked_announcement != "":
+		host_bubble.text = unlocked_announcement + "Pilih kartu bonus untuk tantangan Level %d:" % (Global.current_level + 1)
+	else:
+		host_bubble.text = "Bagus Nak! Acara TV kita bangga padamu.\nPilih kartu bonus untuk tantangan Level %d:" % (Global.current_level + 1)
+
+	# Saring pool kartu acak agar hanya menawarkan item yang sudah di-unlock
+	var available_pool = []
+	for r in reward_pool:
+		if Global.unlocked_parts[r["type"]]:
+			available_pool.append(r)
+			
+	# Jika item yang terbuka kurang dari 3 (seperti di Level 1), kita duplicate opsi yang ada agar kartu tetap berjumlah 3
+	var pool_to_draw = available_pool.duplicate()
+	while pool_to_draw.size() < 3:
+		pool_to_draw.append(available_pool[randi() % available_pool.size()])
+		
+	pool_to_draw.shuffle()
+	chosen_options = [pool_to_draw[0], pool_to_draw[1], pool_to_draw[2]]
 	
 	# Update teks kartu
 	card1.text = chosen_options[0]["label"]
 	card2.text = chosen_options[1]["label"]
 	card3.text = chosen_options[2]["label"]
-	
-	# Set teks bubble dialog host
-	host_bubble.text = "Selamat Nak! Acara TV kita bangga padamu.\nIni hadiah mainan untuk tantangan Peri Gigi Level %d!" % (Global.current_level + 1)
 	
 	# Hubungkan sinyal tombol
 	card1.pressed.connect(func(): _claim_reward(0))
