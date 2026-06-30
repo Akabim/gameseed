@@ -61,7 +61,7 @@ shape = SubResource("RectangleShape2D_sofa")
 
 [node name="Sprite2D" type="Sprite2D" parent="Sofa"]
 texture = ExtResource("3_sofa")
-scale = Vector2(0.250000, 0.141643)
+scale = Vector2(0.213447, 0.103306)
 
 [node name="Chair" type="StaticBody2D" parent="."]
 position = Vector2(1100, 510)
@@ -84,7 +84,7 @@ shape = SubResource("RectangleShape2D_table")
 
 [node name="Sprite2D" type="Sprite2D" parent="Table"]
 texture = ExtResource("4_meja")
-scale = Vector2(0.375000, 0.281426)
+scale = Vector2(0.339751, 0.149105)
 
 [node name="BookStack" type="StaticBody2D" parent="."]
 position = Vector2(1720, 350)
@@ -107,7 +107,7 @@ shape = SubResource("RectangleShape2D_shelf")
 
 [node name="Sprite2D" type="Sprite2D" parent="Shelf"]
 texture = ExtResource("6_lemari")
-scale = Vector2(0.150000, 0.250000)
+scale = Vector2(0.165289, 0.306122)
 
 [node name="SecondFloor" type="StaticBody2D" parent="."]
 position = Vector2(3100, 275)
@@ -130,7 +130,7 @@ shape = SubResource("RectangleShape2D_bed")
 
 [node name="Sprite2D" type="Sprite2D" parent="BedOnSecFloor"]
 texture = ExtResource("5_kasur")
-scale = Vector2(0.325000, 0.184502)
+scale = Vector2(0.291807, 0.130890)
 
 [node name="Step1" type="StaticBody2D" parent="."]
 position = Vector2(4350, 350)
