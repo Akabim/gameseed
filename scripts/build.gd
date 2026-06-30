@@ -84,12 +84,29 @@ func _ready():
 	style_play.corner_radius_bottom_right = 6
 	play_btn.add_theme_stylebox_override("normal", style_play)
 	
-	# Sesuaikan posisi Peri Gigi berdasarkan level saat ini agar makin lama makin menantang
+	# Desain level progresif (5 Level) berdasarkan part yang di-unlock
 	var level = Global.current_level
 	if is_instance_valid(fairy_area):
-		fairy_area.position.x = 2200 + (level * 300)
-		# Jangan biarkan Peri Gigi terlalu tinggi hingga keluar layar atas
-		fairy_area.position.y = max(150, 400 - (level * 40))
+		match level:
+			1:
+				# Level 1: Hanya Roda + Balok. Peri Gigi dekat di atas lantai karpet.
+				fairy_area.position = Vector2(2100, 680)
+			2:
+				# Level 2: Pendorong terbuka. Peri Gigi lebih jauh di udara (butuh boost melompat).
+				fairy_area.position = Vector2(2700, 520)
+			3:
+				# Level 3: Balon terbuka. Peri Gigi melayang tinggi (butuh kombinasi balon + boost).
+				fairy_area.position = Vector2(3100, 250)
+			4:
+				# Level 4: Lebih jauh dan melayang tinggi di udara.
+				fairy_area.position = Vector2(3600, 180)
+			5:
+				# Level 5: Grand Finale. Sangat jauh dan tinggi.
+				fairy_area.position = Vector2(4200, 120)
+			_:
+				# Endless mode: Peri Gigi makin lama makin jauh
+				fairy_area.position.x = 4200 + ((level - 5) * 300)
+				fairy_area.position.y = max(100, 120 - ((level - 5) * 20))
 	
 	# Bersihkan grid dan isi ulang stok aktif dari total parts pool (reset untuk level baru)
 	grid.clear()
@@ -118,8 +135,27 @@ func _process(delta):
 	else:
 		grid_drawer.queue_redraw() # Selalu refresh grid drawer agar mulus 60 FPS
 		if is_instance_valid(fairy_area):
-			# Animasi peri melayang naik turun
-			fairy_area.position.y += sin(Time.get_ticks_msec() / 150.0) * 1.5
+			var level = Global.current_level
+			var t = Time.get_ticks_msec() / 1000.0
+			
+			match level:
+				1, 2:
+					# Hover naik-turun sangat lembut
+					fairy_area.position.y += sin(t * 6.0) * 0.4
+				3:
+					# Hover sedang
+					fairy_area.position.y += sin(t * 5.0) * 1.2
+				4:
+					# Gerakan melingkar lambat (membuat target melayang dinamis)
+					fairy_area.position.y += sin(t * 3.0) * 2.0
+					fairy_area.position.x += cos(t * 2.0) * 1.0
+				5:
+					# Gerakan zig-zag naik-turun cepat (sangat menantang!)
+					fairy_area.position.y += sin(t * 8.0) * 3.5
+				_:
+					# Pasca-level 5: Gerakan acak cepat
+					fairy_area.position.y += sin(t * 10.0) * 4.0
+					fairy_area.position.x += cos(t * 5.0) * 2.0
 			
 		# Kurangi sisa waktu merakit jika grid tidak kosong
 		if not grid.is_empty():
