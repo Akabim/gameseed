@@ -84,6 +84,13 @@ func _ready():
 	style_play.corner_radius_bottom_right = 6
 	play_btn.add_theme_stylebox_override("normal", style_play)
 	
+	# Sesuaikan posisi Peri Gigi berdasarkan level saat ini agar makin lama makin menantang
+	var level = Global.current_level
+	if is_instance_valid(fairy_area):
+		fairy_area.position.x = 2200 + (level * 300)
+		# Jangan biarkan Peri Gigi terlalu tinggi hingga keluar layar atas
+		fairy_area.position.y = max(150, 400 - (level * 40))
+	
 	# Reset timer di awal
 	build_time_left = 60.0
 	_update_ui()
@@ -97,10 +104,10 @@ func _process(delta):
 				_stop_simulation()
 		elif has_won:
 			win_countdown -= delta
-			ui_label.text = "🏆 KAMU BERHASIL NANGKEP PERI GIGI! 🏆\nLanjut level berikutnya dalam %d detik..." % int(ceil(win_countdown))
+			ui_label.text = "🏆 KAMU BERHASIL NANGKEP PERI GIGI! 🏆\nPilih hadiah dalam %d detik..." % int(ceil(win_countdown))
 			if win_countdown <= 0:
-				# Kembali ke fase eksplorasi untuk loop level berikutnya
-				get_tree().change_scene_to_file("res://scenes/Explore.tscn")
+				# Pindah ke layar pemilihan reward (Upgrade Drafting)
+				get_tree().change_scene_to_file("res://scenes/Reward.tscn")
 	else:
 		grid_drawer.queue_redraw() # Selalu refresh grid drawer agar mulus 60 FPS
 		if is_instance_valid(fairy_area):
@@ -150,7 +157,7 @@ func _update_ui():
 		return
 		
 	if is_playing:
-		ui_label.text = "== MENGEMUDI ==\nTekan SPASI untuk nyalain Kipas!\nBalon otomatis mengangkat ke atas.\nTekan R untuk Restart"
+		ui_label.text = "== LEVEL %d (MENGEMUDI) ==\nTekan SPASI untuk nyalain Kipas!\nBalon otomatis mengangkat ke atas.\nTekan R untuk Restart" % Global.current_level
 		build_panel.visible = false
 	else:
 		build_panel.visible = true
@@ -167,7 +174,7 @@ func _update_ui():
 		else:
 			timer_text = "\n⏰ Siap merakit (waktu berjalan setelah part diletakkan)"
 			
-		ui_label.text = "== BUILD MODE ==%s\nDRAG & DROP barang dari tombol bawah ke grid untuk merakit!\nSeret barang keluar grid untuk menghapus (atau klik kanan).\nTekan tombol LUNCURKAN! atau ENTER untuk mulai simulasi!" % timer_text
+		ui_label.text = "== LEVEL %d (BUILD MODE) ==%s\nDRAG & DROP barang dari tombol bawah ke grid untuk merakit!\nSeret barang keluar grid untuk menghapus (atau klik kanan).\nTekan tombol LUNCURKAN! atau ENTER untuk mulai simulasi!" % [Global.current_level, timer_text]
 
 func _get_type_str(type: PartType) -> String:
 	if type == PartType.BOX: return "BOX"

@@ -1,16 +1,20 @@
 extends Node
 
+var current_level = 1
+
+# Starter kit awal permainan
 var inventory = {
-	"BOX": 0,
-	"WHEEL": 0,
-	"FAN": 0,
-	"BALLOON": 0
+	"BOX": 4,
+	"WHEEL": 2,
+	"FAN": 1,
+	"BALLOON": 1
 }
 
-func reset_inventory():
+func reset_game():
+	current_level = 1
 	inventory = {
-		"BOX": 0,
-		"WHEEL": 0,
-		"FAN": 0,
-		"BALLOON": 0
+		"BOX": 4,
+		"WHEEL": 2,
+		"FAN": 1,
+		"BALLOON": 1
 	}
