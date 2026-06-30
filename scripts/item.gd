@@ -1,6 +1,6 @@
 @tool
 extends Area2D
-
+var pickup_sfx = preload("res://assets/audio/mengambilbarang.ogg")
 @export_enum("BOX", "WHEEL", "FAN", "BALLOON") var item_type: String = "BOX":
 	set(val):
 		item_type = val
@@ -34,5 +34,6 @@ func _on_body_entered(body):
 	if Engine.is_editor_hint():
 		return
 	if body.name == "Player":
+		AudioManager.play_sfx(pickup_sfx)
 		Global.inventory[item_type] += 1
 		queue_free()

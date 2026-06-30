@@ -25,7 +25,7 @@ var default_font = SystemFont.new()
 @onready var ui_label : Label = $UI/UILabel
 @onready var fairy_area : Area2D = $FairyArea
 @onready var grid_drawer : Node2D = $GridDrawer
-
+@onready var drag_audio = $DragAudio
 @onready var build_panel : Panel = $UI/BuildPanel
 @onready var box_btn : Button = $UI/BuildPanel/HBox/BoxButton
 @onready var wheel_btn : Button = $UI/BuildPanel/HBox/WheelButton
@@ -33,10 +33,13 @@ var default_font = SystemFont.new()
 @onready var balloon_btn : Button = $UI/BuildPanel/HBox/BalloonButton
 
 var original_camera_pos : Vector2
-
+var last_mouse_pos: Vector2 = Vector2.ZERO
 var chassis_node : RigidBody2D = null
 var active_fans = [] 
 var active_balloons = []
+
+var drag_sfx = preload("res://assets/audio/drag.ogg")
+var clack_sfx = preload("res://assets/audio/buildclick.ogg")
 
 func _ready():
 	camera.position = Vector2(576, 324) # Paksa posisi awal kamera di tengah area build
@@ -79,7 +82,7 @@ func _process(delta):
 		if is_instance_valid(fairy_area):
 			# Animasi peri melayang naik turun
 			fairy_area.position.y += sin(Time.get_ticks_msec() / 150.0) * 1.5
-
+	_handle_drag_audio()
 func _on_fairy_body_entered(body):
 	if is_playing and not has_won and not has_lost:
 		if body.name == "Chassis" or body.name.begins_with("Wheel_"):
@@ -94,6 +97,27 @@ func _start_drag(type: PartType):
 		_update_ui()
 		grid_drawer.queue_redraw()
 
+func _handle_drag_audio():
+	if is_dragging:
+		var current_mouse_pos = get_global_mouse_position()
+		
+		# Cek apakah mouse bergerak (posisi sekarang tidak sama dengan posisi terakhir)
+		if current_mouse_pos != last_mouse_pos:
+			# Jika mouse bergerak dan suara belum menyala, nyalakan
+			if not drag_audio.playing:
+				drag_audio.play()
+		else:
+			# Jika mouse diam tapi barang masih dipegang, hentikan suara
+			if drag_audio.playing:
+				drag_audio.stop()
+				
+		# Update posisi terakhir untuk dicek di frame berikutnya
+		last_mouse_pos = current_mouse_pos
+	else:
+		# Jika barang sudah dilepas (di-drop), pastikan suara dimatikan
+		if drag_audio.playing:
+			drag_audio.stop()
+
 func _drop_item():
 	if not is_dragging:
 		return
@@ -106,6 +130,7 @@ func _drop_item():
 		if Global.inventory[type_str] > 0:
 			grid[grid_pos] = dragged_type
 			Global.inventory[type_str] -= 1
+			AudioManager.play_sfx(clack_sfx)
 			
 	is_dragging = false
 	dragged_type = PartType.EMPTY

@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bti1bn51fut0i"]
 
-[ext_resource type="Script" path="res://scripts/explore.gd" id="1_explore"]
-[ext_resource type="Script" path="res://scripts/player_explore.gd" id="2_player"]
+[ext_resource type="Script" uid="uid://dr7nbjw8akp0d" path="res://scripts/explore.gd" id="1_explore"]
+[ext_resource type="Script" uid="uid://wybq3tgwaaxk" path="res://scripts/player_explore.gd" id="2_player"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
 size = Vector2(6000, 100)

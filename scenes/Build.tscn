@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://b7o72v2nfjf1o"]
 
 [ext_resource type="Script" uid="uid://cl7wngraa8pxt" path="res://scripts/build.gd" id="1_build"]
+[ext_resource type="AudioStream" uid="uid://c3gi2mws3qfjq" path="res://assets/audio/drag.ogg" id="2_ak007"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_desk"]
 size = Vector2(700, 50)
@@ -20,7 +21,7 @@ radius = 40.0
 [node name="Build" type="Node2D" unique_id=1090394640]
 script = ExtResource("1_build")
 
-[node name="Background" type="Node2D" parent="." unique_id=229031328 z_index=-10]
+[node name="Background" type="Node2D" parent="." unique_id=229031328]
 
 [node name="Wallpaper" type="ColorRect" parent="Background" unique_id=1485902522]
 offset_left = -1000.0
@@ -213,3 +214,6 @@ text = "Kipas (0)"
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Balon (0)"
+
+[node name="DragAudio" type="AudioStreamPlayer" parent="." unique_id=576187100]
+stream = ExtResource("2_ak007")
