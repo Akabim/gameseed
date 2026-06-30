@@ -10,9 +10,9 @@ Pemain mengumpulkan part-part mainan di dalam rumah, merakitnya di kamar tidur (
 
 * **Tema Estetika**: Cozy, kekanak-kanakan, penuh warna (*colorful*), dengan nuansa misterius (cuci otak lewat acara TV jadul).
 * **Loop Gameplay**:
-  1. **Fase Eksplorasi (Explore)**: Pemain mengendalikan karakter bocil (side-scroller gaya *Little Misfortune*) berlari mengelilingi rumah untuk mengumpulkan part mainan yang tersebar secara acak sebelum waktu habis.
-  2. **Fase Perakitan (Build)**: Pemain merakit kendaraan mainan di atas meja kamar tidur menggunakan barang-barang yang terkumpul dengan sistem grid drag-and-drop.
-  3. **Fase Pengejaran (Chase)**: Kendaraan meluncur turun bebas akibat gravitasi menuju papan pelontar. Pemain mengaktifkan dorongan petasan/balon di udara untuk mengarahkan mobil menabrak Peri Gigi yang melayang.
+  1. **Fase Perakitan (Build)**: Pemain merakit kendaraan mainan di atas meja kamar tidur menggunakan barang-barang yang ada di inventori dengan sistem grid drag-and-drop.
+  2. **Fase Pengejaran (Chase)**: Kendaraan meluncur turun bebas akibat gravitasi menuju papan pelontar. Pemain mengaktifkan dorongan petasan/balon di udara untuk mengarahkan mobil menabrak Peri Gigi yang melayang.
+  3. **Fase Hadiah TV Show (Reward / Drafting)**: Jika berhasil menangkap Peri Gigi, seorang Tamu Misterius dari stasiun TV brainwash datang membawakan hadiah pilihan 3 kartu mainan (drafting upgrade) untuk menambah koleksi inventori permanen kita. Level selanjutnya akan otomatis naik kesulitan (Peri Gigi terbang lebih jauh & lebih tinggi).
 
 ---
 
