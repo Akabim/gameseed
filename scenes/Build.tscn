@@ -203,7 +203,7 @@ text = "Roda (0)"
 [node name="FanButton" type="Button" parent="UI/BuildPanel/HBox" unique_id=268884391]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Kipas (0)"
+text = "Pendorong (0)"
 
 [node name="BalloonButton" type="Button" parent="UI/BuildPanel/HBox" unique_id=1990126494]
 layout_mode = 2

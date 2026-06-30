@@ -164,7 +164,7 @@ func _update_ui():
 		return
 		
 	if is_playing:
-		ui_label.text = "== LEVEL %d (MENGEMUDI) ==\nTekan SPASI untuk nyalain Kipas!\nBalon otomatis mengangkat ke atas.\nTekan R untuk Restart" % Global.current_level
+		ui_label.text = "== LEVEL %d (MENGEMUDI) ==\nTekan SPASI untuk nyalain Pendorong!\nBalon otomatis mengangkat ke atas.\nTekan R untuk Restart" % Global.current_level
 		build_panel.visible = false
 	else:
 		build_panel.visible = true
@@ -172,7 +172,7 @@ func _update_ui():
 		# Update jumlah stok sisa di teks tombol
 		box_btn.text = "Kardus (%d)" % Global.inventory["BOX"]
 		wheel_btn.text = "Roda (%d)" % Global.inventory["WHEEL"]
-		fan_btn.text = "Kipas (%d)" % Global.inventory["FAN"]
+		fan_btn.text = "Pendorong (%d)" % Global.inventory["FAN"]
 		balloon_btn.text = "Balon (%d)" % Global.inventory["BALLOON"]
 		
 		var timer_text = ""
