@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://b7o72v2nfjf1o"]
 
+[ext_resource type="Texture2D" path="res://assets/papan.png" id="2_papan"]
 [ext_resource type="Script" uid="uid://cl7wngraa8pxt" path="res://scripts/build.gd" id="1_build"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_desk"]
@@ -116,12 +117,9 @@ rotation = 0.401426
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DownhillRamp" unique_id=734395368]
 shape = SubResource("RectangleShape2D_downramp")
 
-[node name="ColorRect" type="ColorRect" parent="DownhillRamp" unique_id=177319486]
-offset_left = -305.0
-offset_top = -15.0
-offset_right = 305.0
-offset_bottom = 15.0
-color = Color(0.45, 0.3, 0.15, 1)
+[node name="Sprite2D" type="Sprite2D" parent="DownhillRamp"]
+texture = ExtResource("2_papan")
+scale = Vector2(1.694444, 0.245902)
 
 [node name="Floor" type="StaticBody2D" parent="." unique_id=1231308069]
 position = Vector2(3000, 800)
@@ -143,12 +141,9 @@ rotation = -0.436332
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LaunchRamp" unique_id=2037107621]
 shape = SubResource("RectangleShape2D_launch")
 
-[node name="ColorRect" type="ColorRect" parent="LaunchRamp" unique_id=2060909617]
-offset_left = -150.0
-offset_top = -20.0
-offset_right = 150.0
-offset_bottom = 20.0
-color = Color(0.5, 0.35, 0.2, 1)
+[node name="Sprite2D" type="Sprite2D" parent="LaunchRamp"]
+texture = ExtResource("2_papan")
+scale = Vector2(0.833333, 0.327869)
 
 [node name="FairyArea" type="Area2D" parent="." unique_id=581647585]
 position = Vector2(2500, 350)
@@ -213,3 +208,13 @@ text = "Kipas (0)"
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Balon (0)"
+
+[node name="ResetButton" type="Button" parent="UI/BuildPanel/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Reset"
+
+[node name="PlayButton" type="Button" parent="UI/BuildPanel/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Luncurkan!"

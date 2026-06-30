@@ -1,63 +1,275 @@
-[gd_scene format=3 uid="uid://bti1bn51fut0i"]
+[gd_scene load_steps=18 format=3 uid="uid://explore_scene_id"]
 
 [ext_resource type="Script" path="res://scripts/explore.gd" id="1_explore"]
 [ext_resource type="Script" path="res://scripts/player_explore.gd" id="2_player"]
+[ext_resource type="Texture2D" path="res://assets/sofa.png" id="3_sofa"]
+[ext_resource type="Texture2D" path="res://assets/meja.png" id="4_meja"]
+[ext_resource type="Texture2D" path="res://assets/kasur.png" id="5_kasur"]
+[ext_resource type="Texture2D" path="res://assets/lemari.png" id="6_lemari"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
-size = Vector2(6000, 100)
+size = Vector2(8000, 100)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sofa"]
+size = Vector2(200, 100)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_table"]
+size = Vector2(300, 150)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_chair"]
+size = Vector2(80, 80)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_books"]
+size = Vector2(100, 40)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_shelf"]
+size = Vector2(120, 300)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_secfloor"]
+size = Vector2(2200, 50)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bed"]
+size = Vector2(260, 100)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_step"]
+size = Vector2(100, 20)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_player"]
 size = Vector2(40, 80)
 
-[node name="Explore" type="Node2D" unique_id=842778198]
+[node name="Explore" type="Node2D"]
 script = ExtResource("1_explore")
 
-[node name="Floor" type="StaticBody2D" parent="." unique_id=539489773]
-position = Vector2(1000, 600)
+[node name="Floor" type="StaticBody2D" parent="."]
+position = Vector2(2000, 600)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor" unique_id=1796271160]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
 shape = SubResource("RectangleShape2D_floor")
 
-[node name="ColorRect" type="ColorRect" parent="Floor" unique_id=547731110]
-offset_left = -3000.0
+[node name="ColorRect" type="ColorRect" parent="Floor"]
+offset_left = -4000.0
 offset_top = -50.0
-offset_right = 3000.0
+offset_right = 4000.0
 offset_bottom = 50.0
-color = Color(0.4, 0.2, 0.1, 1)
+color = Color(0.35, 0.22, 0.12, 1)
 
-[node name="Player" type="CharacterBody2D" parent="." unique_id=1141286965]
-position = Vector2(500, 500)
+[node name="Sofa" type="StaticBody2D" parent="."]
+position = Vector2(800, 500)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sofa"]
+shape = SubResource("RectangleShape2D_sofa")
+
+[node name="Sprite2D" type="Sprite2D" parent="Sofa"]
+texture = ExtResource("3_sofa")
+scale = Vector2(0.250000, 0.141643)
+
+[node name="Chair" type="StaticBody2D" parent="."]
+position = Vector2(1100, 510)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Chair"]
+shape = SubResource("RectangleShape2D_chair")
+
+[node name="ColorRect" type="ColorRect" parent="Chair"]
+offset_left = -40.0
+offset_top = -40.0
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(0.6, 0.45, 0.3, 1)
+
+[node name="Table" type="StaticBody2D" parent="."]
+position = Vector2(1400, 475)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Table"]
+shape = SubResource("RectangleShape2D_table")
+
+[node name="Sprite2D" type="Sprite2D" parent="Table"]
+texture = ExtResource("4_meja")
+scale = Vector2(0.375000, 0.281426)
+
+[node name="BookStack" type="StaticBody2D" parent="."]
+position = Vector2(1720, 350)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BookStack"]
+shape = SubResource("RectangleShape2D_books")
+
+[node name="ColorRect" type="ColorRect" parent="BookStack"]
+offset_left = -50.0
+offset_top = -20.0
+offset_right = 50.0
+offset_bottom = 20.0
+color = Color(0.8, 0.5, 0.3, 1)
+
+[node name="Shelf" type="StaticBody2D" parent="."]
+position = Vector2(1950, 400)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Shelf"]
+shape = SubResource("RectangleShape2D_shelf")
+
+[node name="Sprite2D" type="Sprite2D" parent="Shelf"]
+texture = ExtResource("6_lemari")
+scale = Vector2(0.150000, 0.250000)
+
+[node name="SecondFloor" type="StaticBody2D" parent="."]
+position = Vector2(3100, 275)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SecondFloor"]
+shape = SubResource("RectangleShape2D_secfloor")
+
+[node name="ColorRect" type="ColorRect" parent="SecondFloor"]
+offset_left = -1100.0
+offset_top = -25.0
+offset_right = 1100.0
+offset_bottom = 25.0
+color = Color(0.8, 0.75, 0.7, 1)
+
+[node name="BedOnSecFloor" type="StaticBody2D" parent="."]
+position = Vector2(2500, 200)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BedOnSecFloor"]
+shape = SubResource("RectangleShape2D_bed")
+
+[node name="Sprite2D" type="Sprite2D" parent="BedOnSecFloor"]
+texture = ExtResource("5_kasur")
+scale = Vector2(0.325000, 0.184502)
+
+[node name="Step1" type="StaticBody2D" parent="."]
+position = Vector2(4350, 350)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Step1"]
+shape = SubResource("RectangleShape2D_step")
+
+[node name="ColorRect" type="ColorRect" parent="Step1"]
+offset_left = -50.0
+offset_top = -10.0
+offset_right = 50.0
+offset_bottom = 10.0
+color = Color(0.5, 0.5, 0.5, 1)
+
+[node name="Step2" type="StaticBody2D" parent="."]
+position = Vector2(4550, 450)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Step2"]
+shape = SubResource("RectangleShape2D_step")
+
+[node name="ColorRect" type="ColorRect" parent="Step2"]
+offset_left = -50.0
+offset_top = -10.0
+offset_right = 50.0
+offset_bottom = 10.0
+color = Color(0.5, 0.5, 0.5, 1)
+
+[node name="Step3" type="StaticBody2D" parent="."]
+position = Vector2(4750, 530)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Step3"]
+shape = SubResource("RectangleShape2D_step")
+
+[node name="ColorRect" type="ColorRect" parent="Step3"]
+offset_left = -50.0
+offset_top = -10.0
+offset_right = 50.0
+offset_bottom = 10.0
+color = Color(0.5, 0.5, 0.5, 1)
+
+[node name="Player" type="CharacterBody2D" parent="."]
+position = Vector2(100, 500)
 script = ExtResource("2_player")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player" unique_id=947513714]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
 shape = SubResource("RectangleShape2D_player")
 
-[node name="ColorRect" type="ColorRect" parent="Player" unique_id=1813552120]
+[node name="ColorRect" type="ColorRect" parent="Player"]
 offset_left = -20.0
 offset_top = -40.0
 offset_right = 20.0
 offset_bottom = 40.0
 color = Color(1, 0.4, 0.7, 1)
 
-[node name="Camera2D" type="Camera2D" parent="Player" unique_id=1947380412]
+[node name="Camera2D" type="Camera2D" parent="Player"]
 position_smoothing_enabled = true
 
-[node name="ItemsContainer" type="Node2D" parent="." unique_id=2141920592]
+[node name="ItemsContainer" type="Node2D" parent="."]
 
-[node name="UI" type="CanvasLayer" parent="." unique_id=374414020]
+[node name="SpawnPoints" type="Node2D" parent="."]
 
-[node name="TimeLabel" type="Label" parent="UI" unique_id=2143478372]
+[node name="SpawnPoint1" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(300, 530)
+
+[node name="SpawnPoint2" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(550, 530)
+
+[node name="SpawnPoint3" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(800, 430)
+
+[node name="SpawnPoint4" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(1100, 450)
+
+[node name="SpawnPoint5" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(1400, 380)
+
+[node name="SpawnPoint6" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(1720, 310)
+
+[node name="SpawnPoint7" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(1950, 230)
+
+[node name="SpawnPoint8" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(2150, 230)
+
+[node name="SpawnPoint9" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(2500, 130)
+
+[node name="SpawnPoint10" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(2850, 230)
+
+[node name="SpawnPoint11" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(3200, 230)
+
+[node name="SpawnPoint12" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(3500, 230)
+
+[node name="SpawnPoint13" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(3800, 230)
+
+[node name="SpawnPoint14" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(4050, 230)
+
+[node name="SpawnPoint15" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(4350, 320)
+
+[node name="SpawnPoint16" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(4550, 420)
+
+[node name="SpawnPoint17" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(4750, 500)
+
+[node name="SpawnPoint18" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(5050, 530)
+
+[node name="SpawnPoint19" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(5400, 530)
+
+[node name="SpawnPoint20" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(5750, 530)
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="TimeLabel" type="Label" parent="UI"]
 offset_left = 20.0
 offset_top = 20.0
 offset_right = 600.0
 offset_bottom = 43.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
 text = "SISA WAKTU EXPLORE: 20 Detik"
 
-[node name="InventoryLabel" type="Label" parent="UI" unique_id=1694210584]
+[node name="InventoryLabel" type="Label" parent="UI"]
 offset_left = 20.0
-offset_top = 60.0
+offset_top = 80.0
 offset_right = 600.0
-offset_bottom = 150.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
+offset_bottom = 170.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
 text = "=== TAS KAMU ==="

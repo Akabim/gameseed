@@ -20,6 +20,8 @@ var loss_reason = ""
 var is_dragging = false
 var dragged_type = PartType.EMPTY
 var default_font = SystemFont.new()
+var build_time_left = 60.0
+var tex_kardus = preload("res://assets/kardus.png")
 
 @onready var camera : Camera2D = $Camera2D
 @onready var ui_label : Label = $UI/UILabel
@@ -31,6 +33,8 @@ var default_font = SystemFont.new()
 @onready var wheel_btn : Button = $UI/BuildPanel/HBox/WheelButton
 @onready var fan_btn : Button = $UI/BuildPanel/HBox/FanButton
 @onready var balloon_btn : Button = $UI/BuildPanel/HBox/BalloonButton
+@onready var reset_btn : Button = $UI/BuildPanel/HBox/ResetButton
+@onready var play_btn : Button = $UI/BuildPanel/HBox/PlayButton
 
 var original_camera_pos : Vector2
 
@@ -59,6 +63,29 @@ func _ready():
 	balloon_btn.button_down.connect(func(): _start_drag(PartType.BALLOON))
 	balloon_btn.button_up.connect(func(): _drop_item())
 	
+	# Hubungkan sinyal Reset dan Play
+	reset_btn.pressed.connect(_reset_grid)
+	play_btn.pressed.connect(_start_simulation)
+	
+	# Styling tombol Reset (merah kecokelatan) dan Play (hijau)
+	var style_reset = StyleBoxFlat.new()
+	style_reset.bg_color = Color(0.65, 0.25, 0.25)
+	style_reset.corner_radius_top_left = 6
+	style_reset.corner_radius_top_right = 6
+	style_reset.corner_radius_bottom_left = 6
+	style_reset.corner_radius_bottom_right = 6
+	reset_btn.add_theme_stylebox_override("normal", style_reset)
+	
+	var style_play = StyleBoxFlat.new()
+	style_play.bg_color = Color(0.2, 0.55, 0.25)
+	style_play.corner_radius_top_left = 6
+	style_play.corner_radius_top_right = 6
+	style_play.corner_radius_bottom_left = 6
+	style_play.corner_radius_bottom_right = 6
+	play_btn.add_theme_stylebox_override("normal", style_play)
+	
+	# Reset timer di awal
+	build_time_left = 60.0
 	_update_ui()
 
 func _process(delta):
@@ -79,6 +106,12 @@ func _process(delta):
 		if is_instance_valid(fairy_area):
 			# Animasi peri melayang naik turun
 			fairy_area.position.y += sin(Time.get_ticks_msec() / 150.0) * 1.5
+			
+		# Kurangi sisa waktu merakit jika grid tidak kosong
+		if not grid.is_empty():
+			build_time_left -= delta
+			if build_time_left <= 0:
+				_start_simulation()
 
 func _on_fairy_body_entered(body):
 	if is_playing and not has_won and not has_lost:
@@ -128,7 +161,13 @@ func _update_ui():
 		fan_btn.text = "Kipas (%d)" % Global.inventory["FAN"]
 		balloon_btn.text = "Balon (%d)" % Global.inventory["BALLOON"]
 		
-		ui_label.text = "== BUILD MODE ==\nDRAG & DROP barang dari tombol bawah ke grid untuk merakit!\nSeret barang keluar grid untuk menghapus (atau klik kanan).\nTekan ENTER untuk PLAY!"
+		var timer_text = ""
+		if not grid.is_empty():
+			timer_text = "\n⏰ Sisa Waktu Merakit: %d detik" % int(ceil(build_time_left))
+		else:
+			timer_text = "\n⏰ Siap merakit (waktu berjalan setelah part diletakkan)"
+			
+		ui_label.text = "== BUILD MODE ==%s\nDRAG & DROP barang dari tombol bawah ke grid untuk merakit!\nSeret barang keluar grid untuk menghapus (atau klik kanan).\nTekan tombol LUNCURKAN! atau ENTER untuk mulai simulasi!" % timer_text
 
 func _get_type_str(type: PartType) -> String:
 	if type == PartType.BOX: return "BOX"
@@ -172,8 +211,7 @@ func _on_grid_drawer_draw():
 
 func _draw_part_on_drawer(type: PartType, rect: Rect2):
 	if type == PartType.BOX:
-		grid_drawer.draw_rect(rect, Color(0.6, 0.4, 0.2)) 
-		grid_drawer.draw_rect(rect, Color(0.4, 0.2, 0.1), false, 2.0)
+		grid_drawer.draw_texture_rect(tex_kardus, rect, false)
 	elif type == PartType.FAN:
 		grid_drawer.draw_rect(rect, Color(0.2, 0.6, 0.8)) 
 		grid_drawer.draw_rect(rect, Color(0.1, 0.3, 0.5), false, 2.0)
@@ -300,11 +338,12 @@ func _start_simulation():
 			chassis_node.add_child(col)
 			
 			if type == PartType.BOX:
-				var vis = ColorRect.new()
-				vis.size = Vector2(GRID_SIZE, GRID_SIZE)
-				vis.position = center - Vector2(GRID_SIZE/2.0, GRID_SIZE/2.0)
-				vis.color = Color(0.6, 0.4, 0.2)
-				chassis_node.add_child(vis)
+				var sprite = Sprite2D.new()
+				sprite.texture = tex_kardus
+				sprite.position = center
+				var tex_size = tex_kardus.get_size()
+				sprite.scale = Vector2(float(GRID_SIZE) / tex_size.x, float(GRID_SIZE) / tex_size.y)
+				chassis_node.add_child(sprite)
 			elif type == PartType.FAN:
 				var vis = ColorRect.new()
 				vis.size = Vector2(GRID_SIZE, GRID_SIZE)
@@ -393,6 +432,7 @@ func _stop_simulation():
 	has_lost = false
 	stuck_timer = 0.0
 	simulation_time = 0.0
+	build_time_left = 60.0
 	camera.position = original_camera_pos
 	_update_ui()
 	
@@ -405,4 +445,18 @@ func _stop_simulation():
 		elif child is PinJoint2D:
 			child.queue_free()
 			
+	grid_drawer.queue_redraw()
+
+func _reset_grid():
+	if is_playing:
+		return
+		
+	for pos in grid.keys():
+		var type = grid[pos]
+		var type_str = _get_type_str(type)
+		Global.inventory[type_str] += 1
+		
+	grid.clear()
+	build_time_left = 60.0
+	_update_ui()
 	grid_drawer.queue_redraw()

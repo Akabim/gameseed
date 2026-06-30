@@ -57,17 +57,17 @@ Pemain mengumpulkan part-part mainan di dalam rumah, merakitnya di kamar tidur (
 - [x] **Done**: Gerakan player 2D (WASD/Tombol Arah + Lompat).
 - [x] **Done**: Spawn barang acak lengkap dengan label nama melayang di atasnya.
 - [x] **Done**: Sistem inventory global yang mencatat barang terkumpul.
-- [ ] **Pending**: Desain Rumah (Level Map) – Membuat layout rintangan perabot rumah asli di `Explore.tscn` (meja, tangga, lemari).
+- [x] **Done**: Desain Rumah (Level Map) – Membuat layout rintangan perabot rumah asli di `Explore.tscn` (meja, tangga, lemari, kasur di lantai dua, dan steps melayang).
 - [ ] **Pending**: Durasi Asli – Menyesuaikan durasi eksplorasi asli (saat ini 20 detik untuk testing).
 
 ### 3. Layar Transisi Antar Fase (Transition Screen)
-- [ ] **Pending**: Layar jeda rangkuman barang terkumpul sebelum masuk ke kamar.
+- [x] **Done**: Layar jeda rangkuman barang terkumpul sebelum masuk ke kamar (`Transition.tscn` dengan visual checklist kertas krayon, visual hover anim, dan integrasi inventory).
 
 ### 4. Sesi 2: Build Phase (Perakitan di Kamar)
 - [x] **Done**: Grid snapping perakitan dengan drag & drop dari panel tombol UI bawah (menggunakan sistem `GridDrawer` agar tidak tertutup background).
 - [x] **Done**: Visual ruangan kamar tidur (kasur, meja belajar, jendela).
-- [ ] **Pending**: Timer Perakitan – Menambahkan batas waktu perakitan sebelum kendaraan otomatis diluncurkan.
-- [ ] **Pending**: Tombol Reset Perakitan – Menghapus seluruh rakitan di grid langsung ke tas secara instan.
+- [x] **Done**: Timer Perakitan – Batas waktu perakitan 60 detik (countdown aktif setelah part pertama dipasang, auto-launch saat habis).
+- [x] **Done**: Tombol Reset Perakitan – Menghapus seluruh rakitan di grid langsung ke tas secara instan (QoL button "Reset" & "Luncurkan!").
 
 ### 5. Sesi 3: Chase / Test Phase (Pengejaran Peri Gigi)
 - [x] **Done**: Level physics (Meja $\rightarrow$ Papan Turun $\rightarrow$ Lantai Karpet $\rightarrow$ Papan Pelontar).
