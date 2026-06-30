@@ -92,55 +92,51 @@ func _ready():
 	# Desain level progresif (5 Level) berdasarkan part yang di-unlock dan perubahan stunt track
 	var level = Global.current_level
 	
-	# Layout default Level 1
-	var desk_pos = Vector2(300, 537)
-	var down_pos = Vector2(920, 631)
-	var down_rot = 0.401426
-	var launch_pos = Vector2(1800, 700)
-	var launch_rot = -0.436332
-	var fairy_pos = Vector2(2100, 680)
+	# Layout default Level 1 (Jalur turun mulus terhubung)
+	var desk_pos = Vector2(300, 300)
+	var down_pos = Vector2(900, 420)
+	var down_rot = 0.35
+	var launch_pos = Vector2(1450, 560)
+	var launch_rot = -0.2
+	var fairy_pos = Vector2(1850, 580)
 	
 	match level:
 		1:
-			# Level 1: Rampa normal, Peri Gigi dekat di atas lantai karpet.
-			fairy_pos = Vector2(2100, 680)
+			# Level 1: Rampa terhubung mulus. Peri Gigi dekat di ujung rampa terbang. Bisa lolos murni pakai gravitasi!
+			pass
 		2:
-			# Level 2: Celah (Gap) lebih lebar antara rampa turun dan rampa terbang.
-			launch_pos = Vector2(2000, 720)
-			launch_rot = -0.35
-			fairy_pos = Vector2(2700, 520)
+			# Level 2: Pendorong terbuka. Ada celah (gap) rintangan di tengah rampa. Harus boost melompati celah!
+			launch_pos = Vector2(1650, 600)
+			launch_rot = -0.25
+			fairy_pos = Vector2(2100, 580)
 		3:
-			# Level 3: Meja lebih tinggi, rampa turun lebih terjal, rampa terbang mengarah ke langit.
-			desk_pos = Vector2(300, 480)
-			down_pos = Vector2(920, 580)
-			down_rot = 0.45
-			launch_pos = Vector2(1700, 680)
-			launch_rot = -0.6
-			fairy_pos = Vector2(3100, 250)
-		4:
-			# Level 4: Drop yang sangat curam, rampa terbang jauh di kanan.
-			desk_pos = Vector2(300, 450)
-			down_pos = Vector2(920, 560)
-			down_rot = 0.55
-			launch_pos = Vector2(1900, 710)
+			# Level 3: Balon terbuka. Rampa terbang mendongak tajam, Peri Gigi melayang tinggi (butuh Balon + Pendorong).
 			launch_rot = -0.5
-			fairy_pos = Vector2(3600, 180)
+			fairy_pos = Vector2(1850, 300)
+		4:
+			# Level 4: Meja lebih tinggi, drop lebih curam, rampa terbang jauh (butuh kecepatan tinggi & melayang).
+			desk_pos = Vector2(300, 200)
+			down_pos = Vector2(900, 380)
+			down_rot = 0.5
+			launch_pos = Vector2(1650, 620)
+			launch_rot = -0.4
+			fairy_pos = Vector2(2200, 350)
 		5:
-			# Level 5: Grand Finale. Celah raksasa, meja sangat tinggi, rampa lurus terbang jauh.
-			desk_pos = Vector2(300, 400)
-			down_pos = Vector2(920, 520)
+			# Level 5: Grand Finale. Meja sangat tinggi, drop terjal ekstrem, celah lompatan raksasa, Peri Gigi bergerak cepat.
+			desk_pos = Vector2(300, 150)
+			down_pos = Vector2(900, 350)
 			down_rot = 0.6
-			launch_pos = Vector2(2200, 730)
-			launch_rot = -0.45
-			fairy_pos = Vector2(4200, 120)
+			launch_pos = Vector2(1800, 680)
+			launch_rot = -0.4
+			fairy_pos = Vector2(2400, 250)
 		_:
 			# Endless mode: rampa acak secara dinamis
-			desk_pos = Vector2(300, max(350, 400 - (level - 5) * 10))
-			down_pos = Vector2(920, max(470, 520 - (level - 5) * 10))
+			desk_pos = Vector2(300, max(100, 150 - (level - 5) * 10))
+			down_pos = Vector2(900, max(300, 350 - (level - 5) * 10))
 			down_rot = min(0.7, 0.6 + (level - 5) * 0.02)
-			launch_pos = Vector2(2200 + (level - 5) * 100, 730)
+			launch_pos = Vector2(1800 + (level - 5) * 100, 680)
 			launch_rot = -0.45
-			fairy_pos = Vector2(4200 + (level - 5) * 300, max(100, 120 - (level - 5) * 20))
+			fairy_pos = Vector2(2400 + (level - 5) * 300, max(100, 250 - (level - 5) * 20))
 			
 	# Terapkan posisi & rotasi baru ke environment
 	if is_instance_valid(desk_node): desk_node.position = desk_pos
