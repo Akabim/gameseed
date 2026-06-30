@@ -91,6 +91,10 @@ func _ready():
 		# Jangan biarkan Peri Gigi terlalu tinggi hingga keluar layar atas
 		fairy_area.position.y = max(150, 400 - (level * 40))
 	
+	# Bersihkan grid dan isi ulang stok aktif dari total parts pool (reset untuk level baru)
+	grid.clear()
+	Global.inventory = Global.total_parts.duplicate()
+	
 	# Reset timer di awal
 	build_time_left = 60.0
 	_update_ui()

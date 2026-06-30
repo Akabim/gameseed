@@ -45,8 +45,8 @@ func _claim_reward(index: int):
 	var type = reward["type"]
 	var amount = reward["amount"]
 	
-	# Tambahkan barang ke inventory permanen
-	Global.inventory[type] += amount
+	# Tambahkan barang ke total parts pool permanen
+	Global.total_parts[type] += amount
 	# Naikkan level
 	Global.current_level += 1
 	
