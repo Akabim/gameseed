@@ -36,6 +36,11 @@ var tex_kardus = preload("res://assets/kardus.png")
 @onready var reset_btn : Button = $UI/BuildPanel/HBox/ResetButton
 @onready var play_btn : Button = $UI/BuildPanel/HBox/PlayButton
 
+@onready var desk_node : StaticBody2D = $Desk
+@onready var downhill_ramp : StaticBody2D = $DownhillRamp
+@onready var launch_ramp : StaticBody2D = $LaunchRamp
+@onready var floor_node : StaticBody2D = $Floor
+
 var original_camera_pos : Vector2
 
 var chassis_node : RigidBody2D = null
@@ -84,29 +89,69 @@ func _ready():
 	style_play.corner_radius_bottom_right = 6
 	play_btn.add_theme_stylebox_override("normal", style_play)
 	
-	# Desain level progresif (5 Level) berdasarkan part yang di-unlock
+	# Desain level progresif (5 Level) berdasarkan part yang di-unlock dan perubahan stunt track
 	var level = Global.current_level
+	
+	# Layout default Level 1
+	var desk_pos = Vector2(300, 537)
+	var down_pos = Vector2(920, 631)
+	var down_rot = 0.401426
+	var launch_pos = Vector2(1800, 700)
+	var launch_rot = -0.436332
+	var fairy_pos = Vector2(2100, 680)
+	
+	match level:
+		1:
+			# Level 1: Rampa normal, Peri Gigi dekat di atas lantai karpet.
+			fairy_pos = Vector2(2100, 680)
+		2:
+			# Level 2: Celah (Gap) lebih lebar antara rampa turun dan rampa terbang.
+			launch_pos = Vector2(2000, 720)
+			launch_rot = -0.35
+			fairy_pos = Vector2(2700, 520)
+		3:
+			# Level 3: Meja lebih tinggi, rampa turun lebih terjal, rampa terbang mengarah ke langit.
+			desk_pos = Vector2(300, 480)
+			down_pos = Vector2(920, 580)
+			down_rot = 0.45
+			launch_pos = Vector2(1700, 680)
+			launch_rot = -0.6
+			fairy_pos = Vector2(3100, 250)
+		4:
+			# Level 4: Drop yang sangat curam, rampa terbang jauh di kanan.
+			desk_pos = Vector2(300, 450)
+			down_pos = Vector2(920, 560)
+			down_rot = 0.55
+			launch_pos = Vector2(1900, 710)
+			launch_rot = -0.5
+			fairy_pos = Vector2(3600, 180)
+		5:
+			# Level 5: Grand Finale. Celah raksasa, meja sangat tinggi, rampa lurus terbang jauh.
+			desk_pos = Vector2(300, 400)
+			down_pos = Vector2(920, 520)
+			down_rot = 0.6
+			launch_pos = Vector2(2200, 730)
+			launch_rot = -0.45
+			fairy_pos = Vector2(4200, 120)
+		_:
+			# Endless mode: rampa acak secara dinamis
+			desk_pos = Vector2(300, max(350, 400 - (level - 5) * 10))
+			down_pos = Vector2(920, max(470, 520 - (level - 5) * 10))
+			down_rot = min(0.7, 0.6 + (level - 5) * 0.02)
+			launch_pos = Vector2(2200 + (level - 5) * 100, 730)
+			launch_rot = -0.45
+			fairy_pos = Vector2(4200 + (level - 5) * 300, max(100, 120 - (level - 5) * 20))
+			
+	# Terapkan posisi & rotasi baru ke environment
+	if is_instance_valid(desk_node): desk_node.position = desk_pos
+	if is_instance_valid(downhill_ramp):
+		downhill_ramp.position = down_pos
+		downhill_ramp.rotation = down_rot
+	if is_instance_valid(launch_ramp):
+		launch_ramp.position = launch_pos
+		launch_ramp.rotation = launch_rot
 	if is_instance_valid(fairy_area):
-		match level:
-			1:
-				# Level 1: Hanya Roda + Balok. Peri Gigi dekat di atas lantai karpet.
-				fairy_area.position = Vector2(2100, 680)
-			2:
-				# Level 2: Pendorong terbuka. Peri Gigi lebih jauh di udara (butuh boost melompat).
-				fairy_area.position = Vector2(2700, 520)
-			3:
-				# Level 3: Balon terbuka. Peri Gigi melayang tinggi (butuh kombinasi balon + boost).
-				fairy_area.position = Vector2(3100, 250)
-			4:
-				# Level 4: Lebih jauh dan melayang tinggi di udara.
-				fairy_area.position = Vector2(3600, 180)
-			5:
-				# Level 5: Grand Finale. Sangat jauh dan tinggi.
-				fairy_area.position = Vector2(4200, 120)
-			_:
-				# Endless mode: Peri Gigi makin lama makin jauh
-				fairy_area.position.x = 4200 + ((level - 5) * 300)
-				fairy_area.position.y = max(100, 120 - ((level - 5) * 20))
+		fairy_area.position = fairy_pos
 	
 	# Bersihkan grid dan isi ulang stok aktif dari total parts pool (reset untuk level baru)
 	grid.clear()
