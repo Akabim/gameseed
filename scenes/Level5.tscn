@@ -4,16 +4,16 @@
 
 [node name="Build" instance=ExtResource("1_base")]
 
-[node name="Desk" parent="." index="1"]
-position = Vector2(300, 150)
+[node name="Desk" parent="."]
+position = Vector2(300, 400)
 
-[node name="DownhillRamp" parent="." index="2"]
-position = Vector2(900, 350)
-rotation = 0.6
+[node name="DownhillRamp" parent="."]
+position = Vector2(920, 540)
+rotation = 0.65
 
-[node name="LaunchRamp" parent="." index="4"]
-position = Vector2(1800, 680)
+[node name="LaunchRamp" parent="."]
+position = Vector2(2000, 710)
 rotation = -0.4
 
-[node name="FairyArea" parent="." index="5"]
-position = Vector2(2400, 250)
+[node name="FairyArea" parent="."]
+position = Vector2(2800, 150)
