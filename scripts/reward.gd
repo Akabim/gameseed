@@ -47,6 +47,9 @@ func _claim_reward(index: int):
 	
 	# Tambahkan barang ke total parts pool permanen
 	Global.total_parts[type] += amount
+	print("[Reward] Memilih reward: ", type, " +", amount)
+	print("[Reward] Stok permanen baru: ", Global.total_parts)
+	
 	# Naikkan level
 	Global.current_level += 1
 	

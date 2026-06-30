@@ -94,6 +94,9 @@ func _ready():
 	# Bersihkan grid dan isi ulang stok aktif dari total parts pool (reset untuk level baru)
 	grid.clear()
 	Global.inventory = Global.total_parts.duplicate()
+	print("[Build] Memulai Level: ", Global.current_level)
+	print("[Build] Total Parts: ", Global.total_parts)
+	print("[Build] Inventory Aktif: ", Global.inventory)
 	
 	# Reset timer di awal
 	build_time_left = 60.0
