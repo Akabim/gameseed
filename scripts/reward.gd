@@ -81,8 +81,12 @@ func _claim_reward(index: int):
 	# Naikkan level
 	Global.current_level += 1
 	
-	# Lanjut ke merakit di level berikutnya
-	get_tree().change_scene_to_file("res://scenes/Build.tscn")
+	# Lanjut ke merakit di level berikutnya secara dinamis sesuai scene levelnya
+	var next_scene = "res://scenes/Level%d.tscn" % Global.current_level
+	if not FileAccess.file_exists(next_scene):
+		# Fallback jika level melebihi batas yang dibuat, putar ulang Level 5
+		next_scene = "res://scenes/Level5.tscn"
+	get_tree().change_scene_to_file(next_scene)
 
 func _on_card_hover(btn: Button):
 	var tween = create_tween().set_parallel(true)

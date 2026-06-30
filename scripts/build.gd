@@ -89,65 +89,7 @@ func _ready():
 	style_play.corner_radius_bottom_right = 6
 	play_btn.add_theme_stylebox_override("normal", style_play)
 	
-	# Desain level progresif (5 Level) berdasarkan part yang di-unlock dan perubahan stunt track
-	var level = Global.current_level
-	
-	# Layout default Level 1 (Jalur turun mulus terhubung)
-	var desk_pos = Vector2(300, 300)
-	var down_pos = Vector2(900, 420)
-	var down_rot = 0.35
-	var launch_pos = Vector2(1450, 560)
-	var launch_rot = -0.2
-	var fairy_pos = Vector2(1850, 580)
-	
-	match level:
-		1:
-			# Level 1: Rampa terhubung mulus. Peri Gigi dekat di ujung rampa terbang. Bisa lolos murni pakai gravitasi!
-			pass
-		2:
-			# Level 2: Pendorong terbuka. Ada celah (gap) rintangan di tengah rampa. Harus boost melompati celah!
-			launch_pos = Vector2(1650, 600)
-			launch_rot = -0.25
-			fairy_pos = Vector2(2100, 580)
-		3:
-			# Level 3: Balon terbuka. Rampa terbang mendongak tajam, Peri Gigi melayang tinggi (butuh Balon + Pendorong).
-			launch_rot = -0.5
-			fairy_pos = Vector2(1850, 300)
-		4:
-			# Level 4: Meja lebih tinggi, drop lebih curam, rampa terbang jauh (butuh kecepatan tinggi & melayang).
-			desk_pos = Vector2(300, 200)
-			down_pos = Vector2(900, 380)
-			down_rot = 0.5
-			launch_pos = Vector2(1650, 620)
-			launch_rot = -0.4
-			fairy_pos = Vector2(2200, 350)
-		5:
-			# Level 5: Grand Finale. Meja sangat tinggi, drop terjal ekstrem, celah lompatan raksasa, Peri Gigi bergerak cepat.
-			desk_pos = Vector2(300, 150)
-			down_pos = Vector2(900, 350)
-			down_rot = 0.6
-			launch_pos = Vector2(1800, 680)
-			launch_rot = -0.4
-			fairy_pos = Vector2(2400, 250)
-		_:
-			# Endless mode: rampa acak secara dinamis
-			desk_pos = Vector2(300, max(100, 150 - (level - 5) * 10))
-			down_pos = Vector2(900, max(300, 350 - (level - 5) * 10))
-			down_rot = min(0.7, 0.6 + (level - 5) * 0.02)
-			launch_pos = Vector2(1800 + (level - 5) * 100, 680)
-			launch_rot = -0.45
-			fairy_pos = Vector2(2400 + (level - 5) * 300, max(100, 250 - (level - 5) * 20))
-			
-	# Terapkan posisi & rotasi baru ke environment
-	if is_instance_valid(desk_node): desk_node.position = desk_pos
-	if is_instance_valid(downhill_ramp):
-		downhill_ramp.position = down_pos
-		downhill_ramp.rotation = down_rot
-	if is_instance_valid(launch_ramp):
-		launch_ramp.position = launch_pos
-		launch_ramp.rotation = launch_rot
-	if is_instance_valid(fairy_area):
-		fairy_area.position = fairy_pos
+	# Posisi meja, rampa, dan Peri Gigi dibaca langsung dari scene level terkait (Level1.tscn s/d Level5.tscn) yang diedit secara visual di editor Godot.
 	
 	# Bersihkan grid dan isi ulang stok aktif dari total parts pool (reset untuk level baru)
 	grid.clear()
