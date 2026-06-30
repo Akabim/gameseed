@@ -234,7 +234,7 @@ func _draw_part_on_drawer(type: PartType, rect: Rect2):
 func _is_in_build_area(pos: Vector2i) -> bool:
 	return pos.x >= BUILD_AREA_START.x and pos.x < BUILD_AREA_START.x + BUILD_AREA_SIZE.x and pos.y >= BUILD_AREA_START.y and pos.y < BUILD_AREA_START.y + BUILD_AREA_SIZE.y
 
-func _unhandled_input(event):
+func _input(event):
 	if event is InputEventKey and event.pressed:
 		if is_playing and event.keycode == KEY_R:
 			_stop_simulation()

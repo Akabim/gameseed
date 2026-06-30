@@ -28,6 +28,7 @@ offset_left = -1000.0
 offset_top = -200.0
 offset_right = 5000.0
 offset_bottom = 1000.0
+mouse_filter = 2
 color = Color(0.92, 0.88, 0.82, 1)
 
 [node name="Baseboard" type="ColorRect" parent="Background" unique_id=1133987642]
